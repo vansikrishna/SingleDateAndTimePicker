@@ -6,7 +6,6 @@ import android.support.annotation.Nullable;
 
 import com.github.florent37.singledateandtimepicker.widget.WheelMinutePicker;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -43,6 +42,8 @@ public abstract class BaseDialog {
     @Nullable
     protected Date defaultDate;
 
+    protected boolean displayDtSelector;
+    protected boolean displayHourMinuteLabels;
     protected boolean displayDays;
     protected boolean displayMinutes;
     protected boolean displayHours;

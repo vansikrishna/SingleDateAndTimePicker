@@ -131,6 +131,8 @@ public class SingleDateAndTimePickerDialog extends BaseDialog {
         }
 
         picker.setDisplayDays(displayDays);
+        picker.setDisplayHourMinuteLabels(displayHourMinuteLabels);
+        picker.setDisplayDtSelector(displayDtSelector);
         picker.setDisplayMinutes(displayMinutes);
         picker.setDisplayHours(displayHours);
     }
@@ -177,6 +179,11 @@ public class SingleDateAndTimePickerDialog extends BaseDialog {
 
     public SingleDateAndTimePickerDialog setDisplayDays(boolean displayDays) {
         this.displayDays = displayDays;
+        return this;
+    }
+
+    public SingleDateAndTimePickerDialog setDisplayHourMinuteLabels(boolean displayHourMinuteLabels) {
+        this.displayHourMinuteLabels = displayHourMinuteLabels;
         return this;
     }
 
@@ -231,6 +238,8 @@ public class SingleDateAndTimePickerDialog extends BaseDialog {
         private boolean mustBeOnFuture;
         private int minutesStep = WheelMinutePicker.STEP_MINUTES_DEFAULT;
 
+        private boolean displayDtSelector = true;
+        private boolean displayHourMinuteLabels = false;
         private boolean displayDays = true;
         private boolean displayMinutes  = true;
         private boolean displayHours  = true;
@@ -288,6 +297,16 @@ public class SingleDateAndTimePickerDialog extends BaseDialog {
 
         public Builder displayDays(boolean displayDays) {
             this.displayDays = displayDays;
+            return this;
+        }
+
+        public Builder displayHourMinuteLabels(boolean displayHourMinuteLabels) {
+            this.displayHourMinuteLabels = displayHourMinuteLabels;
+            return this;
+        }
+
+        public Builder displayDtSelector(boolean displayDtSelector) {
+            this.displayDtSelector = displayDtSelector;
             return this;
         }
 
@@ -353,6 +372,7 @@ public class SingleDateAndTimePickerDialog extends BaseDialog {
                     .setDisplayHours(displayHours)
                     .setDisplayMinutes(displayMinutes)
                     .setDisplayDays(displayDays)
+                    .setDisplayHourMinuteLabels(displayHourMinuteLabels)
                     .setDayFormatter(dayFormatter)
                     .setMustBeOnFuture(mustBeOnFuture);
 

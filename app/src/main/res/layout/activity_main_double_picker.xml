@@ -3,8 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    >
+    android:orientation="vertical">
 
     <android.support.v7.widget.Toolbar
         android:layout_width="match_parent"
@@ -12,15 +11,13 @@
         android:background="@color/colorPrimary"
         android:elevation="4dp"
         app:title="Picker"
-        app:titleTextColor="@android:color/white"
-        />
+        app:titleTextColor="@android:color/white" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:orientation="vertical"
-        >
+        android:orientation="vertical">
 
         <LinearLayout
             android:id="@+id/singleLayout"
@@ -28,26 +25,23 @@
             android:layout_height="60dp"
             android:background="?android:attr/selectableItemBackground"
             android:gravity="center_vertical"
-            android:orientation="horizontal"
-            >
+            android:orientation="horizontal">
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
-                android:src="@drawable/ic_event_available_black_24dp"
-                />
+                android:src="@drawable/ic_event_available_black_24dp" />
 
             <TextView
                 android:id="@+id/singleText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:textSize="15sp"
                 android:text="Click me to open single dialog"
                 android:textColor="@color/textColor"
-                />
+                android:textSize="15sp" />
 
         </LinearLayout>
 
@@ -57,28 +51,82 @@
             android:layout_height="60dp"
             android:background="?android:attr/selectableItemBackground"
             android:gravity="center_vertical"
-            android:orientation="horizontal"
-            >
+            android:orientation="horizontal">
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
-                android:src="@drawable/ic_event_available_black_24dp"
-                />
+                android:src="@drawable/ic_event_available_black_24dp" />
 
             <TextView
                 android:id="@+id/doubleText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:textSize="15sp"
                 android:text="Click me to open double dialog"
                 android:textColor="@color/textColor"
-                />
+                android:textSize="15sp" />
         </LinearLayout>
 
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:id="@+id/includeLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <com.github.florent37.singledateandtimepicker.SingleDateAndTimePicker
+                    android:id="@+id/include_picker"
+                    android:layout_width="1dp"
+                    android:layout_height="230dp"
+                    android:layout_weight="1"
+                    app:picker_curved="true"
+                    app:picker_cyclic="true"
+                    app:picker_displayDays="false"
+                    app:picker_displayDtSelector="false"
+                    app:picker_displayHourMinuteLabels="true"
+                    app:picker_textColor="@color/colorAccent"
+                    app:picker_selectedTextColor="@color/colorPrimary"
+                    app:picker_textSize="20sp"
+                    app:picker_visibleItemCount="7" />
+
+                <LinearLayout
+                    android:id="@+id/side_layout"
+                    android:layout_width="1dp"
+                    android:layout_height="230dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/sample"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_gravity="center"
+                        android:text="Selection Item"
+                        android:textStyle="bold"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="18sp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <View
+                android:id="@+id/selector"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/wheelSelectorHeight"
+                android:layout_gravity="center_vertical"
+                android:alpha="0.2"
+                android:background="@color/picker_default_selector_color" />
+
+        </FrameLayout>
     </LinearLayout>
 
 </LinearLayout>

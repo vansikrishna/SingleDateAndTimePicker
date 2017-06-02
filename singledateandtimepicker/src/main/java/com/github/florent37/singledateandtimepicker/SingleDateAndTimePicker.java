@@ -8,6 +8,7 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.github.florent37.singledateandtimepicker.widget.WheelAmPmPicker;
 import com.github.florent37.singledateandtimepicker.widget.WheelDayPicker;
@@ -36,7 +37,8 @@ public class SingleDateAndTimePicker extends LinearLayout {
     private WheelMinutePicker minutesPicker;
     private WheelHourPicker hoursPicker;
     private WheelAmPmPicker amPmPicker;
-
+    private TextView hoursLabel;
+    private TextView minutesLabel;
     private Listener listener;
 
     private int textColor;
@@ -52,9 +54,11 @@ public class SingleDateAndTimePicker extends LinearLayout {
     private Date minDate;
     private Date maxDate;
 
+    private boolean displayHourMinuteLabels = false;
     private boolean displayDays = true;
     private boolean displayMinutes = true;
     private boolean displayHours = true;
+    private boolean displayDtSelector = true;
 
     private boolean isAmPm;
     private int selectorHeight;
@@ -76,7 +80,9 @@ public class SingleDateAndTimePicker extends LinearLayout {
 
         daysPicker = (WheelDayPicker) findViewById(R.id.daysPicker);
         minutesPicker = (WheelMinutePicker) findViewById(R.id.minutesPicker);
+        minutesLabel = (TextView) findViewById(R.id.minutesLabel);
         hoursPicker = (WheelHourPicker) findViewById(R.id.hoursPicker);
+        hoursLabel = (TextView) findViewById(R.id.hoursLabel);
         amPmPicker = (WheelAmPmPicker) findViewById(R.id.amPmPicker);
         dtSelector = findViewById(R.id.dtSelector);
 
@@ -148,6 +154,18 @@ public class SingleDateAndTimePicker extends LinearLayout {
 
     public void setDisplayDays(boolean displayDays) {
         this.displayDays = displayDays;
+        updateViews();
+        updatePicker();
+    }
+
+    public void setDisplayHourMinuteLabels(boolean displayHourMinuteLabels) {
+        this.displayHourMinuteLabels = displayHourMinuteLabels;
+        updateViews();
+        updatePicker();
+    }
+
+    public void setDisplayDtSelector(boolean displayDtSelector) {
+        this.displayDtSelector = displayDtSelector;
         updateViews();
         updatePicker();
     }
@@ -251,12 +269,22 @@ public class SingleDateAndTimePicker extends LinearLayout {
         if (hoursPicker != null) {
             hoursPicker.setIsAmPm(isAmPm);
         }
-
+        if (dtSelector != null) {
+            dtSelector.setVisibility(displayDtSelector ? VISIBLE : GONE);
+        }
         if (hoursPicker != null) {
             hoursPicker.setVisibility(displayHours ? VISIBLE : GONE);
         }
+        if (hoursLabel != null) {
+            hoursLabel.setVisibility(displayHourMinuteLabels ? VISIBLE : GONE);
+            hoursLabel.setTextColor(selectedTextColor);
+        }
         if (minutesPicker != null) {
             minutesPicker.setVisibility(displayMinutes ? VISIBLE : GONE);
+        }
+        if (minutesLabel != null) {
+            minutesLabel.setVisibility(displayHourMinuteLabels ? VISIBLE : GONE);
+            minutesLabel.setTextColor(selectedTextColor);
         }
         if (daysPicker != null) {
             daysPicker.setVisibility(displayDays ? VISIBLE : GONE);
@@ -422,6 +450,8 @@ public class SingleDateAndTimePicker extends LinearLayout {
         visibleItemCount = a.getInt(R.styleable.SingleDateAndTimePicker_picker_visibleItemCount, VISIBLE_ITEM_COUNT_DEFAULT);
 
         displayDays = a.getBoolean(R.styleable.SingleDateAndTimePicker_picker_displayDays, displayDays);
+        displayHourMinuteLabels = a.getBoolean(R.styleable.SingleDateAndTimePicker_picker_displayHourMinuteLabels, displayHourMinuteLabels);
+        displayDtSelector = a.getBoolean(R.styleable.SingleDateAndTimePicker_picker_displayDtSelector, displayDtSelector);
         displayMinutes = a.getBoolean(R.styleable.SingleDateAndTimePicker_picker_displayMinutes, displayMinutes);
         displayHours = a.getBoolean(R.styleable.SingleDateAndTimePicker_picker_displayHours, displayHours);
 

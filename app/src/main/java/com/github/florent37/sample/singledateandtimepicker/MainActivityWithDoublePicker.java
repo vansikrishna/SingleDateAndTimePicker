@@ -1,10 +1,16 @@
 package com.github.florent37.sample.singledateandtimepicker;
 
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.DisplayMetrics;
+import android.view.Gravity;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.github.florent37.singledateandtimepicker.SingleDateAndTimePicker;
 import com.github.florent37.singledateandtimepicker.dialog.DoubleDateAndTimePickerDialog;
 import com.github.florent37.singledateandtimepicker.dialog.SingleDateAndTimePickerDialog;
 
@@ -25,18 +31,68 @@ public class MainActivityWithDoublePicker extends AppCompatActivity {
     TextView doubleText;
     @Bind(R.id.singleText)
     TextView singleText;
+    @Bind(R.id.side_layout)
+    LinearLayout side_layout;
 
     SimpleDateFormat simpleDateFormat;
     SingleDateAndTimePickerDialog.Builder singleBuilder;
     DoubleDateAndTimePickerDialog.Builder doubleBuilder;
+    @Bind(R.id.include_picker)
+    SingleDateAndTimePicker picker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_double_picker);
         ButterKnife.bind(this);
-
         this.simpleDateFormat = new SimpleDateFormat("EEE d MMM HH:mm", Locale.getDefault());
+        initPickerWidth();
+        initIncludeLayout();
+    }
+
+    private void initPickerWidth() {
+        DisplayMetrics displaymetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
+        int w = displaymetrics.widthPixels/2;
+        int h = dpToPx(230);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(w, h);
+        picker.setLayoutParams(params);
+        picker.setGravity(Gravity.RIGHT);
+        side_layout.setLayoutParams(params);
+        picker.setListener(new SingleDateAndTimePicker.Listener() {
+            @Override
+            public void onDateChanged(String displayed, Date date) {
+                Toast.makeText(getApplicationContext(), displayed, Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    public static int pxToDp(int px) {
+        return (int) (px / Resources.getSystem().getDisplayMetrics().density);
+    }
+
+    public static int dpToPx(int dp) {
+        return (int) (dp * Resources.getSystem().getDisplayMetrics().density);
+    }
+
+    private void initIncludeLayout() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.DAY_OF_MONTH, 1);
+        calendar.set(Calendar.MONTH, 0);
+        calendar.set(Calendar.YEAR, 2017);
+        final Date minDate = calendar.getTime();
+
+        calendar.set(Calendar.DAY_OF_MONTH, 5);
+        final Date maxDate = calendar.getTime();
+
+        calendar.set(Calendar.DAY_OF_MONTH, 2);
+        final Date defaultDate = calendar.getTime();
+
+        if (defaultDate != null) {
+            calendar = Calendar.getInstance();
+            calendar.setTime(defaultDate);
+            picker.selectDate(calendar);
+        }
     }
 
     @Override
@@ -69,7 +125,9 @@ public class MainActivityWithDoublePicker extends AppCompatActivity {
 
                 .backgroundColor(Color.BLACK)
                 .mainColor(Color.GREEN)
-
+                //.displayDays(false)
+                .displayDtSelector(true)
+                .displayHourMinuteLabels(true)
                 //.displayHours(false)
                 //.displayMinutes(false)
 
